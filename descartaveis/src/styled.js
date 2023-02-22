@@ -13,16 +13,17 @@ export const MainContainer = styled.div`
 
 export const ListContainer = styled.div`
 display: grid;
-grid-template-columns: 20% 40% 10% 15% 15%;
+grid-template-columns: 20% 40% 10% 10% 20%;
 flex-wrap: wrap;
 width: 100%;
 box-sizing: border-box;
 border: 1px black solid;
 `
 
-export const TagModal = styled.div`
-overflow-y: scroll;
-height: 50vh;
+export const TagModal = styled.dialog`
+height: 200px;
+width: 300px;
+background-color: red;
 `
 
 export const List = styled.ul`
@@ -42,7 +43,7 @@ box-sizing: border-box;
 export const UL = styled.ul`
 padding: 1rem;
 display: grid;
-grid-template-columns: 20% 40% 15% 10% 10%;
+grid-template-columns: 20% 40% 15% 10% 15%;
 box-sizing: border-box;
 width: 100%;
 border: 1px black solid;
