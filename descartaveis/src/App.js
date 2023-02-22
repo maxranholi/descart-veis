@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { data } from "./json";
+import data from "./dados.json";
 import {
   Input,
   List,
@@ -28,7 +28,7 @@ export default function App() {
     const searchName = event.target.value;
 
     const filterItems = items.filter((item) =>
-      item.marca.toLowerCase().includes(searchName.toLowerCase())
+      item.produto.toLowerCase().includes(searchName.toLowerCase())
     );
 
     setSearchItem(filterItems);
@@ -89,7 +89,8 @@ export default function App() {
       {listMap}
       {isOpen && (
           <dialog ref={dialogRef} open={isOpen}>
-            <h5>{codigo_barras}</h5>
+            <h5>Código de barras: {codigo_barras}</h5>
+            <h5>Quantidade em estoque:</h5>
             <button onClick={closeDialog}>Fechar</button>
           </dialog>
         )}
