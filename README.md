@@ -1,1 +1,1 @@
-# descart-veis
+# descartáveis
