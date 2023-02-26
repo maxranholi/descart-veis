@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import data from "./dados.json";
 import {
+  DivCheked,
+  DivModal,
+  Header,
   Input,
   List,
   ListContainer,
+  ListMap,
   MainContainer,
-  Modal,
   TagModal,
   UL,
 } from "./styled";
@@ -16,7 +19,6 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [itemId, setItemID] = useState("");
   const [activeItemId, setActiveItemId] = useState(null);
-  const [activeId, setActiveId] = useState([]);
 
   const dialogRef = useRef(null);
 
@@ -34,7 +36,6 @@ export default function App() {
     setSearchItem(filterItems);
   };
 
- 
   const openDialog = () => {
     setIsOpen(true);
     dialogRef.current.showModal();
@@ -48,10 +49,11 @@ export default function App() {
 
   const handleClick = (item) => {
     setItemID(item);
-    openDialog();    
+    openDialog();
   };
 
-  const codigo_barras = itemId.código_barras;
+  const codigo_barras = itemId.codigo_barras;
+  const medidas = itemId.medida;
 
   const listMap = searchItem.map((item, index) => (
     <ListContainer key={index}>
@@ -62,38 +64,45 @@ export default function App() {
         <h5>{item.produto} </h5>
       </List>
       <List>
-        <h5>{item.endereço} </h5>
+        <h5>{item.endereco} </h5>
       </List>
       <List>
-        <input type="radio" checked />
+        <DivCheked status={item.est}>{item.est}</DivCheked>
       </List>
       <List>
-        <input type="radio" checked />
-        <button onClick={() => handleClick(item)}>id</button>
+        <DivCheked status={item.gal}>{item.gal}</DivCheked>
+        <button onClick={() => handleClick(item)}>!</button>
       </List>
     </ListContainer>
   ));
 
- 
-
   return (
     <MainContainer>
-      <Input type="text" onChange={handleSearch} placeholder="Itens" />
-      <UL>
-        <li>Marca</li>
-        <li>Produto</li>
-        <li>End</li>
-        <li>Est</li>
-        <li>Gal</li>
-      </UL>
+      <Header>
+        <Input type="text" onChange={handleSearch} placeholder="Itens" />
+        <UL>
+          <li>Marca</li>
+          <li>Produto</li>
+          <li>End</li>
+          <li>Est</li>
+          <li>Gal</li>
+        </UL>
+      </Header>
+      <ListMap>
       {listMap}
-      {isOpen && (
-          <dialog ref={dialogRef} open={isOpen}>
-            <h5>Código de barras: {codigo_barras}</h5>
-            <h5>Quantidade em estoque:</h5>
-            <button onClick={closeDialog}>Fechar</button>
-          </dialog>
-        )}
+      </ListMap>
+
+      <DivModal>
+        <DivModal open={isOpen}>
+          {isOpen && (
+            <TagModal ref={dialogRef} open={isOpen}>
+              <h5>Código de barras: {codigo_barras}</h5>
+              <h5>Medida da caixa: {medidas}</h5>
+              <button onClick={closeDialog}>Fechar</button>
+            </TagModal>
+          )}
+        </DivModal>
+      </DivModal>
     </MainContainer>
   );
 }
